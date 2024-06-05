@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slurmibtopology
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slurmibtopology
+  template:
+    metadata:
+      labels:
+        app: slurmibtopology
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+        kubernetes.io/arch: amd64
+        node-role.kubernetes.io/worker: ""
+      hostNetwork: true
+      containers:
+        - name: slurmibtopology
+          image: r0ckstar/slurmibtopology:latest
+          securityContext:
+            privileged: true
