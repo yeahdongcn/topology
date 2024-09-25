@@ -64,7 +64,7 @@ func Test_eval_nodes_tree_topo1(t *testing.T) {
 	err := switch_record_validate("../../../../test/topology1.conf")
 	require.NoError(t, err)
 
-	node_map := &bitstr_t{"tux1", "tux3", "tux5", "tux6", "tux7"}
+	node_map := &bitstr_t{"tu-x1", "tu-x3", "tux5", "tux6", "tux7"}
 	eval := &topology_eval_t{
 		node_map:  node_map,
 		req_nodes: 3,
@@ -74,7 +74,7 @@ func Test_eval_nodes_tree_topo1(t *testing.T) {
 	require.Equal(t, &bitstr_t{"tux5", "tux6", "tux7"}, eval.node_map)
 	require.Equal(t, uint16(2), eval.leaf_switch_cnt)
 
-	node_map = &bitstr_t{"tux1"}
+	node_map = &bitstr_t{"tu-x1"}
 	eval = &topology_eval_t{
 		node_map:  node_map,
 		req_nodes: 3,
@@ -82,29 +82,29 @@ func Test_eval_nodes_tree_topo1(t *testing.T) {
 	rc = eval_nodes_tree(eval, false)
 	require.Equal(t, slurm.ERROR, rc)
 
-	node_map = &bitstr_t{"tux0", "tux2", "tux4", "tux7"}
+	node_map = &bitstr_t{"tu-x0", "tu-x2", "tux4", "tux7"}
 	eval = &topology_eval_t{
 		node_map:  node_map,
 		req_nodes: 3,
 	}
 	rc = eval_nodes_tree(eval, false)
 	require.Equal(t, slurm.SUCCESS, rc)
-	require.Equal(t, &bitstr_t{"tux0", "tux2", "tux4"}, eval.node_map)
+	require.Equal(t, &bitstr_t{"tu-x0", "tu-x2", "tux4"}, eval.node_map)
 	require.Equal(t, uint16(3), eval.leaf_switch_cnt)
 
 	// With req_node_bitmap
-	node_map = &bitstr_t{"tux0", "tux2", "tux4", "tux7"}
+	node_map = &bitstr_t{"tu-x0", "tu-x2", "tux4", "tux7"}
 	eval = &topology_eval_t{
 		node_map:        node_map,
-		req_node_bitmap: &bitstr_t{"tux0", "tux2", "tux4"},
+		req_node_bitmap: &bitstr_t{"tu-x0", "tu-x2", "tux4"},
 		req_nodes:       3,
 	}
 	rc = eval_nodes_tree(eval, false)
 	require.Equal(t, slurm.SUCCESS, rc)
-	require.Equal(t, &bitstr_t{"tux0", "tux2", "tux4"}, eval.node_map)
+	require.Equal(t, &bitstr_t{"tu-x0", "tu-x2", "tux4"}, eval.node_map)
 	require.Equal(t, uint16(3), eval.leaf_switch_cnt)
 
-	node_map = &bitstr_t{"tux0", "tux1", "tux2", "tux4", "tux5", "tux6"}
+	node_map = &bitstr_t{"tu-x0", "tu-x1", "tu-x2", "tux4", "tux5", "tux6"}
 	eval = &topology_eval_t{
 		node_map:        node_map,
 		req_node_bitmap: &bitstr_t{"tux4"},
