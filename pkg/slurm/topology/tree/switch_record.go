@@ -187,7 +187,7 @@ func _check_better_path(i, j, k int) {
 
 func _node_name2bitmap(node_names string) (*bitstr_t, error) {
 	// Regular expression to match patterns like "node[1-3,5,7-9]"
-	re := regexp.MustCompile(`([a-zA-Z]+)\[([0-9,-]+)\]`)
+	re := regexp.MustCompile(`([a-zA-Z-]+)\[([0-9,-]+)\]`)
 	matches := re.FindStringSubmatch(node_names)
 
 	if len(matches) != 3 {
