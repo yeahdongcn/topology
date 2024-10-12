@@ -252,13 +252,8 @@ func _switch_record_reset() {
 	node_record_cnt = 0
 }
 
-func switch_record_validate(filename string) error {
+func switch_record_validate(ptr_array []*slurm_conf_switches_t) error {
 	_switch_record_reset()
-
-	ptr_array, err := _read_topo_file(filename)
-	if err != nil {
-		return err
-	}
 
 	switch_record_cnt = len(ptr_array)
 	if switch_record_cnt == 0 {

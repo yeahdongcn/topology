@@ -14,8 +14,12 @@ const (
 )
 
 // SwitchRecordValidate validates the switch records from the given configuration file.
-func SwitchRecordValidate(filename string) error {
-	return switch_record_validate(filename)
+func SwitchRecordValidate(ptr_array []*slurm_conf_switches_t) error {
+	return switch_record_validate(ptr_array)
+}
+
+func ReadTopoFile(filename string) ([]*slurm_conf_switches_t, error) {
+	return _read_topo_file(filename)
 }
 
 // EvalNodesTree evaluates the nodes tree.

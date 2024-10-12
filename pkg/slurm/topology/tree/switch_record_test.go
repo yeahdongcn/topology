@@ -84,7 +84,9 @@ func Test_switch_record_validate(t *testing.T) {
 		switch_record_table = make([]*switch_record_t, 0)
 		switch_record_cnt = 0
 
-		err := switch_record_validate(topo)
+		ptr_array, err := _read_topo_file(topo)
+		require.NoError(t, err)
+		err = switch_record_validate(ptr_array)
 		require.NoError(t, err)
 		require.NotEmpty(t, switch_record_table)
 		expected := 7

@@ -14,7 +14,12 @@ func topology_p_generate_node_ranking(filename string) error {
 
 	log.Debugf("Generating node ranking %d", switch_rank)
 
-	err := switch_record_validate(filename)
+	ptr_array, err := _read_topo_file(filename)
+	if err != nil {
+		return err
+	}
+
+	err = switch_record_validate(ptr_array)
 	if err != nil {
 		return err
 	}

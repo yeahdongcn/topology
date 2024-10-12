@@ -23,7 +23,11 @@ var (
 			log.Debugf("Required nodes: %#v", requiredNodes)
 			log.Debugf("Number of nodes requested: %d", requested)
 
-			err := tree.SwitchRecordValidate(topology)
+			ptr_array, err := tree.ReadTopoFile(topology)
+			if err != nil {
+				return err
+			}
+			err = tree.SwitchRecordValidate(ptr_array)
 			if err != nil {
 				return err
 			}

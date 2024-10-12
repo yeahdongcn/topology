@@ -11,7 +11,9 @@ import (
 )
 
 func Benchmark_eval_nodes_tree_topo3(b *testing.B) {
-	err := switch_record_validate("../../../../test/topology3.conf")
+	ptr_array, err := _read_topo_file("../../../../test/topology3.conf")
+	require.NoError(b, err)
+	err = switch_record_validate(ptr_array)
 	require.NoError(b, err)
 
 	for i := 0; i < b.N; i++ {
@@ -31,7 +33,9 @@ func Benchmark_eval_nodes_tree_topo3(b *testing.B) {
 }
 
 func Test_eval_nodes_tree_topo3(t *testing.T) {
-	err := switch_record_validate("../../../../test/topology3.conf")
+	ptr_array, err := _read_topo_file("../../../../test/topology3.conf")
+	require.NoError(t, err)
+	err = switch_record_validate(ptr_array)
 	require.NoError(t, err)
 
 	node_map := &bitstr_t{"worker001", "worker002", "worker003", "worker004", "worker005", "worker006", "worker007"}
@@ -46,7 +50,9 @@ func Test_eval_nodes_tree_topo3(t *testing.T) {
 }
 
 func Test_eval_nodes_tree_topo2(t *testing.T) {
-	err := switch_record_validate("../../../../test/topology2.conf")
+	ptr_array, err := _read_topo_file("../../../../test/topology2.conf")
+	require.NoError(t, err)
+	err = switch_record_validate(ptr_array)
 	require.NoError(t, err)
 
 	node_map := &bitstr_t{"tux0", "tux1", "tux2", "tux12", "tux13", "tux14", "tux15"}
@@ -61,7 +67,9 @@ func Test_eval_nodes_tree_topo2(t *testing.T) {
 }
 
 func Test_eval_nodes_tree_topo1(t *testing.T) {
-	err := switch_record_validate("../../../../test/topology1.conf")
+	ptr_array, err := _read_topo_file("../../../../test/topology1.conf")
+	require.NoError(t, err)
+	err = switch_record_validate(ptr_array)
 	require.NoError(t, err)
 
 	node_map := &bitstr_t{"tu-x1", "tu-x3", "tux5", "tux6", "tux7"}
