@@ -21,12 +21,24 @@ func SwitchRecordValidate(filename string) error {
 // EvalNodesTree evaluates the nodes tree.
 // It returns the selected nodes, the number of leaf switches, and an error if any.
 func EvalNodesTree(availableNodes []string, requiredNodes []string, requestedNodeCount uint32) ([]string, uint16, error) {
+
+	availableNodesInNodeRecordTable := []string{}
+	for _, availableNode := range availableNodes {
+		if nodeInNodeRecordTable(availableNode, node_record_table) {
+			availableNodesInNodeRecordTable = append(availableNodesInNodeRecordTable, availableNode)
+		}
+	}
+
+	if len(availableNodesInNodeRecordTable) == 0 {
+		return nil, 0, nil
+	}
+
 	var (
 		node_map        *bitstr_t
 		req_node_bitmap *bitstr_t
 	)
-	if len(availableNodes)+len(requiredNodes) > 0 {
-		b1 := bitstr_t(availableNodes)
+	if len(availableNodesInNodeRecordTable)+len(requiredNodes) > 0 {
+		b1 := bitstr_t(availableNodesInNodeRecordTable)
 		b2 := bitstr_t(requiredNodes)
 		bit_or(&b1, &b2)
 		node_map = &b1
